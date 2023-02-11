@@ -7,13 +7,16 @@ defmodule ClusterMap.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = [
+      example: [
+        strategy: Cluster.Strategy.Epmd,
+        config: [hosts: [:"dkirkali@127.0.0.1", :"pi@192.168.86.70"]],
+      ]
+    ]
     children = [
-      # Starts a worker by calling: ClusterMap.Worker.start_link(arg)
-      # {ClusterMap.Worker, arg}
+      {Cluster.Supervisor, [topologies, [name: ClusterMap.ClusterSupervisor]]},
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ClusterMap.Supervisor]
     Supervisor.start_link(children, opts)
   end
