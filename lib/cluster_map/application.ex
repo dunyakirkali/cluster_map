@@ -10,7 +10,7 @@ defmodule ClusterMap.Application do
     topologies = [
       example: [
         strategy: Cluster.Strategy.Epmd,
-        config: [hosts: [:"dkirkali@127.0.0.1", :"pi@192.168.86.70"]],
+        config: [hosts: [:"dkirkali@192.168.86.71", :"pi@192.168.86.70"]],
       ]
     ]
     children = [
